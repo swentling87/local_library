@@ -1,4 +1,6 @@
 from django.db import models
+from django.urls import reverse #Used to generate URLs by reversing the URL patterns
+import uuid # Required for unique book instances
 
 # Create your models here.
 class Genre(models.Model):
@@ -13,7 +15,18 @@ class Genre(models.Model):
         """
         return self.name
         
-from django.urls import reverse #Used to generate URLs by reversing the URL patterns
+
+class Language(models.Model):
+    """
+    Model representing a Language (e.g. English, French, Japanese, etc.)
+    """
+    name = models.CharField(max_length=200, help_text="Enter a the book's natural language (e.g. English, French, Japanese etc.)")
+    
+    def __str__(self):
+        """
+        String for representing the Model object (in Admin site etc.)
+        """
+        return self.name
 
 class Book(models.Model):
     """
@@ -42,7 +55,6 @@ class Book(models.Model):
         """
         return reverse('book-detail', args=[str(self.id)])
         
-import uuid # Required for unique book instances
 
 class BookInstance(models.Model):
     """
